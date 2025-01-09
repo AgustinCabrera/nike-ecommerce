@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "T-shirt",
+      "price": 29.99,
+      "category": "men",
+      "imageUrl": "/products/tshirt.png",
+      "description": "A brief description of Product 1."
+    },
+    {
+      "id": "2",
+      "name": "Dress",
+      "price": 49.99,
+      "category": "women",
+      "imageUrl": "/products/dress.png",
+      "description": "A brief description of Product 2."
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "User 1",
+      "email": "user1@example.com"
+    },
+    {
+      "id": "2",
+      "name": "User 2",
+      "email": "user2@example.com"
+    },
+    {
+      "id": "4219",
+      "name": "agustin",
+      "email": "agustin@email.com",
+      "password": "1234"
+    },
+    {
+      "id": "db05",
+      "name": "agustin",
+      "email": "agustin@email.com",
+      "password": "1234"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Running"
+    },
+    {
+      "id": "2",
+      "name": "Casual"
+    },
+    {
+      "id": "3",
+      "name": "Kids"
+    }
+  ]
+}
