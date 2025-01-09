@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -16,12 +17,16 @@ export default function LoginForm() {
     });
     if (response.ok) {
       const data = await response.json();
-      
       localStorage.setItem('user', JSON.stringify(data.user));
-      router.push('/'); 
+      router.push('/');
     } else {
       alert('Login failed. Please check your credentials.');
     }
+  };
+
+  const handleGitHubSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    signIn('github');
   };
 
   return (
@@ -45,15 +50,17 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full px-3 py-2 border rounded  text-black"
+          className="w-full px-3 py-2 border rounded text-black"
         />
       </div>
       <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">
         Login
       </button>
-      <p>Not registered yet?</p>
+      <button onClick={handleGitHubSignIn} className="w-full bg-gray-800 text-white py-2 rounded mt-4">
+        Sign In with GitHub
+      </button>
+      <p className="mt-4">Not registered yet?</p>
       <a href="/pages/register" className="text-blue-500">Register</a>
     </form>
   );
 }
-
