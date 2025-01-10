@@ -4,21 +4,18 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function AdminDashboard() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRole, setUserRole] = useState('');
   const router = useRouter();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user.isAdmin) {
-      setIsAdmin(true);
-    } else {
+    if (user.role !== 'ADMIN') {
+      alert('Acces denied, admins only')
       router.push('/');
+    } else {
+      setUserRole(user.role);
     }
   }, [router]);
-
-  if (!isAdmin) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="container mx-auto mt-8">

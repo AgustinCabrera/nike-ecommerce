@@ -14,18 +14,98 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  password  String?
+  role      UserRole @default(CUSTOMER)
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cart      Cart[]
 }
 
-model Shoes {
-  id    Int     @id @default(autoincrement())
-  name  String
-  price Float
-  size  Int
-  color String
-  user  User?   @relation(fields: [userId], references: [id])
-  userId Int?
+enum UserRole {
+  ADMIN
+  CUSTOMER
+  EDITOR
+}
+
+model Product {
+  id          String      @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  imgeUrl     String
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  sizes       Size[]
+  stock       Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  OrderItem   OrderItem[]
+  CartItem    CartItem[]
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Size {
+  id        String   @id @default(uuid())
+  value     String // M,L,XL
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int
+  items       OrderItem[]
+  totalAmount Float
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  DELIVERED
+  CANCELLED
+  SHIPPED
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+  price     Float
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Cart {
+  id          String     @id @default(uuid())
+  user        User       @relation(fields: [userId], references: [id])
+  userId      Int        @unique
+  items       CartItem[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+model CartItem {
+  id          String     @id @default(uuid())
+  cart        Cart       @relation(fields: [cartId], references: [id])
+  cartId      String
+  product     Product    @relation(fields: [productId], references: [id])
+  productId   String
+  quantity    Int
+  createdAt   DateTime   @default(now())
 }

@@ -1,10 +1,10 @@
 import { fetchProducts } from '@/app/lib/products';
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdmin } from "@/app/lib/authorize";
+import prisma from '@/app/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
-    const products = await fetchProducts(); 
+    const products = await prisma.product.findMany(); 
     return NextResponse.json(products); 
   } catch (error) {
     return NextResponse.json(
