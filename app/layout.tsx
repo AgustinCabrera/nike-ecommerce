@@ -4,7 +4,6 @@ import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import Link from "next/link";
 import Footer from "../lib/footer";
-import SignIn from "@/app/components/Auth/SingIn";
 import { SignOut } from "@/app/components/Auth/Singout";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";

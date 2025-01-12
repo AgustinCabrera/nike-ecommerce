@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
         category: true,
       },
     });
-
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {
     return NextResponse.json(

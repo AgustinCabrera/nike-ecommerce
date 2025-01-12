@@ -1,6 +1,7 @@
 import { handlers } from "@/auth";
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+
 export const { GET, POST } = handlers;
 
 export default NextAuth({
@@ -21,3 +22,4 @@ export default NextAuth({
     },
   },
 });
+

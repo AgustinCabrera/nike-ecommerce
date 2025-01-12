@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import prisma from "@/lib/prisma";
 
-const Products = () => {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+const ProductGrid = () => {
   const [loading, setLoading] = useState(true);
-
-  const products = prisma.product.findMany({
-    id: products.id,
-    name: products.name,
-    price: products.price,
-    imageUrl: products.imageUrl,
-  });
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("/api/products/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setProducts(data);
-      setLoading(false);
+      try {
+        const response = await fetch("/api/products", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
     };
     fetchProducts();
   }, []);
@@ -32,13 +37,17 @@ const Products = () => {
   }
 
   return (
-    <ProductCard
-      key={product.id}
-      name={product.name}
-      price={`$${product.price}`}
-      imageUrl={product.imageUrl}
-    />
+    <div className="product-grid">
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.name}
+          price={`$${product.price}`}
+          imageUrl={product.imageUrl}
+        />
+      ))}
+    </div>
   );
 };
 
-export default Products;
+export default ProductGrid;
