@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { fetchProducts } from '@/app/lib/products';
+import { fetchProducts } from '@/lib/products';
 import ProductGrid from '@/app/components/ProductGrid';
 
 interface CategoryPageProps {

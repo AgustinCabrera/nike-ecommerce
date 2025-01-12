@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { fetchUsers } from '../lib/users';
+import { fetchUsers } from '../../lib/users';
 
 const users = await fetchUsers();
 

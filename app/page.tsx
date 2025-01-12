@@ -7,7 +7,7 @@ export default function Home() {
         <Image src="/nike.png" alt="medias" width={400} height={300}></Image>
         </div>
         <h1 className="text-4xl font-bold">Welcome to Nike ecommerce</h1>
-        <h1 className="justDoItText font-bold text-4xl">JUST DO IT</h1>
+        <h1 className="text-2xl font-bold">oficial crombie partner</h1>
         
       </main>
     </div>

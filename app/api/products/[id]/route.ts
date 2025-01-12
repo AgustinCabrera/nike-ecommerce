@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchProducts } from '@/app/lib/products';
+import { fetchProducts } from '@/lib/products';
 
 export async function GET(req: NextRequest,{params:{}}) {
   const products = await fetchProducts();

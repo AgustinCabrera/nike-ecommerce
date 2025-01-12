@@ -1,36 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import ProductCard from './ProductCard';
+import React, { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
+import prisma from "@/lib/prisma";
 
-const Products = () =>{
-  const [products, setProducts] = useState<any[]>([]);
+const Products = () => {
   const [loading, setLoading] = useState(true);
+
+  const products = prisma.product.findMany({
+    id: products.id,
+    name: products.name,
+    price: products.price,
+    imageUrl: products.imageUrl,
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('http://localhost:3001/products');
+      const response = await fetch("/api/products/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
       setProducts(data);
       setLoading(false);
     };
-
     fetchProducts();
   }, []);
 
   if (loading) {
     return <h2>Loading...</h2>;
-}
+  }
 
   return (
-    <div className="product-grid">
-      {filteredProducts.map((product) => (
-        <ProductCard
-          key={product.id}
-          name={product.name}
-          price={`$${product.price}`}
-          imageUrl={product.imageUrl}
-        />
-      ))}
-    </div>
+    <ProductCard
+      key={product.id}
+      name={product.name}
+      price={`$${product.price}`}
+      imageUrl={product.imageUrl}
+    />
   );
 };
 

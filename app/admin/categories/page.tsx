@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchCategories } from '@/app/lib/categories';
+import { fetchCategories } from '@/lib/categories';
 
 export default function ManageCategories() {
   const [categories, setCategories] = useState([]);

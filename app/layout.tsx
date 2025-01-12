@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import Link from "next/link";
-import Footer from "./lib/footer";
+import Footer from "../lib/footer";
 import SignIn from "@/app/components/Auth/SingIn";
 import { SignOut } from "@/app/components/Auth/Singout";
 import { auth } from "@/auth";
@@ -53,10 +53,7 @@ export default async function RootLayout({
             <ul>
               <Link href="/user">User</Link>
             </ul>
-            <ul>
-              <Link href="/pages/login">Login</Link>
-            </ul>
-            {session ? <SignOut /> : <SignIn />}
+            {session ? <SignOut /> : <Link href="/pages/login">Login</Link>}
           </div>
           <div className="flex-grow">{children}</div>
           <footer>

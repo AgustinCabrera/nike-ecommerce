@@ -1,6 +1,6 @@
-import { fetchCategories } from "@/app/lib/categories";
+import { fetchCategories } from "@/lib/categories";
 import { NextRequest, NextResponse } from "next/server";
-import { isAdmin } from "@/app/lib/authorize";
+import { isAdmin } from "@/lib/authorize";
 
 export async function GET(req: NextRequest,{params:{params}}) {
   const categories = await fetchCategories();
