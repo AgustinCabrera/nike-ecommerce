@@ -1,16 +1,27 @@
-import type { NextConfig } from "next";
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-module.exports = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'example.com',
-        pathname: '/images/**',
-      }
-    ],
-  },
-};
+import path from 'path';
+
+const nextConfig = {
+    reactStrictMode: true,
+    sassOptions: {
+        includePaths: [path.join(__dirname, 'src/styles')],
+        prependData: `@import "variables.scss";`,
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'example.com',
+                port: '',
+                pathname: '**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'another-example.com',
+                port: '',
+                pathname: '**',
+            },
+        ],
+    },
+}
+
 export default nextConfig;

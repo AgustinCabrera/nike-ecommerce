@@ -3,7 +3,12 @@ import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    });
     return NextResponse.json(categories);
   } catch (error) {
     return NextResponse.json(
@@ -30,6 +35,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
     return NextResponse.json(newCategories);
   } catch (error) {
-    return NextResponse.json({ message: "Error creating categories", error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { message: "Error creating categories", error: error.message },
+      { status: 500 }
+    );
   }
 }
