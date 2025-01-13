@@ -5,10 +5,11 @@ import "@radix-ui/themes/styles.css";
 import Link from "next/link";
 import Footer from "../lib/footer";
 import { SignOut } from "@/app/components/Auth/Singout";
-import { auth } from "@/auth";
+import { getServerSession } from "@auth/next";
+import { authOptions } from "@/auth"; // Corrected import
 import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 import Image from "next/image";
-
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,21 +39,35 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         >
-          <nav className=" shadow-md">
+          <nav className="shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between h-16">
                 <div className="flex">
                   <Link href="/" className="flex-shrink-0 flex items-center">
-                    <Image src="/nike.png" alt="Nike logo" width={60} height={45} />
+                    <Image
+                      src="/nike.png"
+                      alt="Nike logo"
+                      width={60}
+                      height={45}
+                    />
                   </Link>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <Link href="/categories/women" className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium">
+                    <Link
+                      href="/categories/women"
+                      className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium"
+                    >
                       Women
                     </Link>
-                    <Link href="/categories/men" className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium">
+                    <Link
+                      href="/categories/men"
+                      className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium"
+                    >
                       Men
                     </Link>
-                    <Link href="/categories/children" className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium">
+                    <Link
+                      href="/categories/children"
+                      className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium"
+                    >
                       Kids
                     </Link>
                   </div>
@@ -61,7 +76,10 @@ export default async function RootLayout({
                   {session ? (
                     <SignOut />
                   ) : (
-                    <Link href="/api/auth/signin" className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                    <Link
+                      href="/api/auth/signin"
+                      className="text-white inline-flex items-center px-1 pt-1 text-sm font-medium"
+                    >
                       Login
                     </Link>
                   )}
@@ -76,4 +94,3 @@ export default async function RootLayout({
     </html>
   );
 }
-
